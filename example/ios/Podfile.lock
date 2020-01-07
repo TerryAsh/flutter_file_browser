@@ -1,0 +1,40 @@
+PODS:
+  - file_browser (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - fluttertoast (0.0.2):
+    - Flutter
+  - path_provider (0.0.1):
+    - Flutter
+  - permission_handler (3.3.0):
+    - Flutter
+
+DEPENDENCIES:
+  - file_browser (from `.symlinks/plugins/file_browser/ios`)
+  - Flutter (from `.symlinks/flutter/ios`)
+  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+
+EXTERNAL SOURCES:
+  file_browser:
+    :path: ".symlinks/plugins/file_browser/ios"
+  Flutter:
+    :path: ".symlinks/flutter/ios"
+  fluttertoast:
+    :path: ".symlinks/plugins/fluttertoast/ios"
+  path_provider:
+    :path: ".symlinks/plugins/path_provider/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
+
+SPEC CHECKSUMS:
+  file_browser: b1f64923116d1bb8f9bbfd13d73a8144381ff734
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
+  path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
+  permission_handler: 67637977b227d62d46bfbf524f335f8568de5a73
+
+PODFILE CHECKSUM: b6a0a141693093b304368d08511b46cf3d1d0ac5
+
+COCOAPODS: 1.8.4
