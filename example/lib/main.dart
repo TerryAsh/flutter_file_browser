@@ -3,6 +3,8 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:file_browser/file_browser.dart';
+import 'package:event_bus/event_bus.dart';
+import 'package:file_browser/file_browser_notification.dart';
 
 void main() => runApp(MaterialApp(
       home: MyApp(),
@@ -20,6 +22,11 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPlatformState();
+    FileBrowser.onSelectedFile = (fileLocalPath) {
+      setState(() {
+        _platformVersion = fileLocalPath;
+      });
+    };
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -50,7 +57,7 @@ class _MyAppState extends State<MyApp> {
       ),
       body: Center(
         child: GestureDetector(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Text('Running onxx: $_platformVersion\n'),
           onTap: _pickDocument,
         ),
       ),
@@ -58,23 +65,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   _pickDocument() async {
-    String result;
     try {
-      FileBrowserPickerParams params = FileBrowserPickerParams(
-        allowedFileExtensions: null,
-        allowedUtiTypes: null,
-        allowedMimeTypes: null,
-      );
-
-      FileBrowser.openDocument(this.context);
-      print("result" + result);
+      FileBrowser.openDocument(context);
     } catch (e) {
       print(e);
-      result = 'Error: $e';
-    } finally {
-      setState(() {});
-    }
-
-    setState(() {});
+    } finally {}
   }
 }

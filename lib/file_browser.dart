@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:file_browser/browser_view.dart';
@@ -12,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class FileBrowser {
+  static Function(String filePath) onSelectedFile;
   static const MethodChannel _channel = const MethodChannel('file_browser');
 
   static Future<String> get platformVersion async {
@@ -23,15 +23,23 @@ class FileBrowser {
     if (Platform.isAndroid) {
       _exploreFileOnAndroid(context);
     } else if (Platform.isIOS) {
-      _exploreFileOnIos();
+      _exploreFileOnIos(context);
     }
   }
 
-  static void _exploreFileOnIos() async {
-    FileBrowserPickerParams params = FileBrowserPickerParams();
+  static void _exploreFileOnIos(BuildContext context) async {
+    FileBrowserPickerParams params = FileBrowserPickerParams(
+      allowedFileExtensions: null,
+      allowedUtiTypes: ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx'],
+      allowedMimeTypes: null,
+    );
     String filePath =
         await _channel.invokeMethod('pickDocument', params?.toJson());
     debugPrint(filePath);
+
+    if (onSelectedFile != null) {
+      onSelectedFile(filePath);
+    }
   }
 
   static void _exploreFileOnAndroid(BuildContext context) {
@@ -58,7 +66,20 @@ class FileBrowser {
         .then((result) {
       Navigator.push(context,
           new MaterialPageRoute(builder: (BuildContext context) {
-        return FileBrowserView();
+        return WillPopScope(
+          child: FileBrowserView(
+            onSelectedFile: (fileLocalPath) {
+              if (onSelectedFile != null) {
+                onSelectedFile(fileLocalPath);
+              }
+              Navigator.of(context).pop();
+            },
+          ),
+          onWillPop: () {
+            print('over here');
+            return Future.value(true);
+          },
+        );
       }));
     });
   }

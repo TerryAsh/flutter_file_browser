@@ -13,13 +13,21 @@ import 'package:intl/intl.dart';
 /// 点击一个文件，打开
 /// 返回上一层，返回上一层目录路径 [dir.parent.path]
 class FileBrowserView extends StatefulWidget {
+  String get selectedFilePath {
+    return _selectedFilePath;
+  }
+
+  final Function(String filePath) onSelectedFile;
+  FileBrowserView({@required this.onSelectedFile});
+
+  String _selectedFilePath;
+
   @override
   _FileBrowserViewState createState() => _FileBrowserViewState();
 }
 
 class _FileBrowserViewState extends State<FileBrowserView> {
   List<FileSystemEntity> files = [];
-  MethodChannel _channel = MethodChannel('openFileChannel');
   Directory parentDir;
   ScrollController controller = ScrollController();
   List<double> position = [];
@@ -365,7 +373,11 @@ class _FileBrowserViewState extends State<FileBrowserView> {
   }
 
   Future openFile(String path) async {
-    final Map<String, dynamic> args = <String, dynamic>{'path': path};
-    await _channel.invokeMethod('openFile', args);
+    widget._selectedFilePath = path;
+    if (widget.onSelectedFile != null) {
+      widget.onSelectedFile(path);
+    }
+    //final Map<String, dynamic> args = <String, dynamic>{'path': path};
+    //await _channel.invokeMethod('openFile', args);
   }
 }
