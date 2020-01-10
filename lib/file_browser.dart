@@ -30,7 +30,17 @@ class FileBrowser {
   static void _exploreFileOnIos(BuildContext context) async {
     FileBrowserPickerParams params = FileBrowserPickerParams(
       allowedFileExtensions: null,
-      allowedUtiTypes: ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx'],
+      allowedUtiTypes: [
+        "public.data",
+        "com.microsoft.powerpoint.​ppt",
+        "com.microsoft.word.doc",
+        "com.microsoft.excel.xls",
+        "com.microsoft.powerpoint.​pptx",
+        "com.microsoft.word.docx",
+        "com.microsoft.excel.xlsx",
+        "public.plain-text",
+        "com.adobe.pdf"
+      ],
       allowedMimeTypes: null,
     );
     String filePath =

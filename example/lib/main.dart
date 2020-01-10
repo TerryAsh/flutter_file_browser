@@ -3,8 +3,6 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:file_browser/file_browser.dart';
-import 'package:event_bus/event_bus.dart';
-import 'package:file_browser/file_browser_notification.dart';
 
 void main() => runApp(MaterialApp(
       home: MyApp(),
